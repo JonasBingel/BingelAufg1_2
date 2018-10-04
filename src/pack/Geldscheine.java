@@ -4,26 +4,17 @@ public class Geldscheine {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		final int EINGABE_BETRAG = 47;
-		int anzahl = 0;
-		// int ausgabeBetrag = (EINGABE_BETRAG / 5) * 5;
+		final int EINGABE_BETRAG = 365;
+		// TODO zweite pruefe hoehe funktion; alles in vier variablen aufteilen und in
+		// der funktion die ausgabe aufrufen
+		// TODO redundanz bei summe der anzahl d.h. vgl. pruefehoehe funktion
 		int ausgabeBetrag = (EINGABE_BETRAG - (EINGABE_BETRAG % 5));
-		double scheinHoehe = 0.01;
+		// final double scheinHoehe = 0.01;
 		System.out.println("Eingabebetrag: " + EINGABE_BETRAG + " EUR");
 		System.out.println("Auszahlungsbetrag: " + ausgabeBetrag);
 		System.out.println("Ausgabe:");
 
-		int anzahlScheine[] = berechneMinimaleScheine(ausgabeBetrag);
-		anzahl = berechneAnzahl(anzahlScheine);
-
-		if (pruefenHoehe(anzahl)) {
-			ausgabeHoehe(scheinHoehe, anzahl);
-			ausgabeMinimaleSchein(anzahlScheine);
-
-		} else {
-			System.out.println(
-					"Die Anzahl der Scheine ist groeßer 100 und kann daher nicht ausgegben werden. Wählen Sie einen kleineren Betrag.");
-		}
+		berechneMinimaleScheine(ausgabeBetrag);
 		System.out.println();
 		System.out.println("Varianten von Ausgaben:");
 		berechneVarianten(ausgabeBetrag);
@@ -34,12 +25,9 @@ public class Geldscheine {
 		// abzuhebender Geldbetrag wird gelesen
 	}
 
-	public static boolean pruefenHoehe(int anzahl5, int... anzahloptional) {
-		// Lösung um optionalen Parameter zu ermöglichen; Stackoverflow
-		// https://stackoverflow.com/questions/965690/java-optional-parameters
-		int anzahl10 = anzahloptional.length > 0 ? anzahloptional[0] : 0;
+	public static boolean pruefenHoehe(int anzahl) {
 
-		if (anzahl5 + anzahl10 <= 100) {
+		if (anzahl <= 100) {
 			return true;
 		} else {
 			return false;
@@ -53,7 +41,7 @@ public class Geldscheine {
 		for (int j = 0; j < (ausgabeBetrag / 10) + 1; j++) {
 			anzahl5 = (ausgabeBetrag - j * 10) / 5;
 
-			if (pruefenHoehe(anzahl5, j)) {
+			if (pruefenHoehe(berechneAnzahl(anzahl5, j, 0, 0))) {
 				ausgabeVarianten(ausgabeBetrag, j, anzahl5);
 				anzahlVarianten = anzahlVarianten + 1;
 			}
@@ -62,17 +50,39 @@ public class Geldscheine {
 		ausgabeVariantenanzahl(anzahlVarianten, ausgabeBetrag);
 	}
 
-	public static int[] berechneMinimaleScheine(int ausgabeBetrag) {
-		int anzahlScheine[] = new int[4];
+	public static void berechneMinimaleScheine(int ausgabeBetrag) {
 		int restBetrag = ausgabeBetrag;
+		int anzahl = 0;
+		int anzahl5 = 0;
+		int anzahl10 = 0;
+		int anzahl20 = 0;
+		int anzahl50 = 0;
 		int geldscheine[] = { 50, 20, 10, 5 };
-		int i = 0;
 		for (int element : geldscheine) {
-			anzahlScheine[i] = restBetrag / element;
+			anzahl = restBetrag / element;
 			restBetrag = restBetrag % element;
-			i++;
+
+			if (element == 50) {
+				anzahl50 = anzahl;
+			} else if (element == 20) {
+				anzahl20 = anzahl;
+			} else if (element == 10) {
+				anzahl10 = anzahl;
+			} else {
+				anzahl5 = anzahl;
+			}
 		}
-		return anzahlScheine;
+		anzahl = berechneAnzahl(anzahl5, anzahl10, anzahl20, anzahl50);
+		if (pruefenHoehe(anzahl)) {
+
+			ausgabeHoehe(0.01, anzahl);
+			ausgabeMinimaleSchein(anzahl5, anzahl10, anzahl20, anzahl50);
+
+		} else {
+			System.out.println(
+					"Die Anzahl der Scheine ist groeßer 100 und kann daher nicht ausgegben werden. Wählen Sie einen kleineren Betrag.");
+		}
+
 	}
 
 	public static void ausgabeVarianten(int ausgabeBetrag, int anzahl10, int anzahl5) {
@@ -82,11 +92,11 @@ public class Geldscheine {
 
 	}
 
-	public static void ausgabeMinimaleSchein(int[] anzahlScheine) {
-		System.out.println("  Anzahl 50-EUR-Scheine:" + anzahlScheine[0]);
-		System.out.println("  Anzahl 20-EUR-Scheine:" + anzahlScheine[1]);
-		System.out.println("  Anzahl 10-EUR-Scheine:" + anzahlScheine[2]);
-		System.out.println("  Anzahl 5-EUR-Scheine:" + anzahlScheine[3]);
+	public static void ausgabeMinimaleSchein(int anzahl5, int anzahl10, int anzahl20, int anzahl50) {
+		System.out.println("  Anzahl 50-EUR-Scheine:" + anzahl50);
+		System.out.println("  Anzahl 20-EUR-Scheine:" + anzahl20);
+		System.out.println("  Anzahl 10-EUR-Scheine:" + anzahl10);
+		System.out.println("  Anzahl 5-EUR-Scheine:" + anzahl5);
 	}
 
 	public static void ausgabeVariantenanzahl(int anzahl, int ausgabeBetrag) {
@@ -106,11 +116,8 @@ public class Geldscheine {
 		System.out.println("Hoehe: " + String.format("%.2f", scheinHoehe * anzahl) + " cm");
 	}
 
-	public static int berechneAnzahl(int[] anzahlScheine) {
-		int anzahl = 0;
-		for (int element : anzahlScheine) {
-			anzahl = anzahl + element;
-		}
+	public static int berechneAnzahl(int anzahl5, int anzahl10, int anzahl20, int anzahl50) {
+		int anzahl = anzahl5 + anzahl10 + anzahl20 + anzahl50;
 		return anzahl;
 
 	}
