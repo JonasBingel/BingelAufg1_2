@@ -75,7 +75,7 @@ public class Geldscheine {
 		anzahl = berechneAnzahl(anzahl5, anzahl10, anzahl20, anzahl50);
 		if (pruefenHoehe(anzahl)) {
 
-			ausgabeHoehe(0.01, anzahl);
+			ausgabeHoehe(anzahl);
 			ausgabeMinimaleSchein(anzahl5, anzahl10, anzahl20, anzahl50);
 
 		} else {
@@ -107,13 +107,13 @@ public class Geldscheine {
 		System.out.println(anzahl + " Varianten");
 	}
 
-	public static void ausgabeHoehe(double scheinHoehe, int anzahl) {
+	public static void ausgabeHoehe(int anzahl) {
 		// format only 2 decimals
 		// Formatierung um auf genau 2 Dezimalstellen zu runden; alternativ * 100
 		// typecasten zu int und zu double und dann / 100
 		// Lösung auf Stackoverflow von "Arun"
 		// https://stackoverflow.com/questions/11701399/round-up-to-2-decimal-places-in-java
-		System.out.println("Hoehe: " + String.format("%.2f", scheinHoehe * anzahl) + " cm");
+		System.out.println("Hoehe: " + String.format("%.2f", 0.01 * anzahl) + " cm");
 	}
 
 	public static int berechneAnzahl(int anzahl5, int anzahl10, int anzahl20, int anzahl50) {
