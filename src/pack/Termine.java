@@ -3,14 +3,11 @@ package pack;
 public class Termine {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		final int TAG = 11;
-		final int MONAT = 7;
-		final int JAHR = 1957;
+		final int TAG = 22;
+		final int MONAT = 4;
+		final int JAHR = 2019;
 		final int BEARBEITUNGSZEIT = 8;
 		final int BEARBEITUNGSZEIT_TAGE = BEARBEITUNGSZEIT * 7;
-		// TODO bei rueckwarts rechnen die vorigen Monate als ausgang nehmen, damit
-		// richtige werte geliefert werden
 
 		String wochentag = berechneWochentag(TAG, MONAT, JAHR);
 		String datumAusgang = formatiereDatum(TAG, MONAT, JAHR);
@@ -29,7 +26,7 @@ public class Termine {
 				System.out.println("Ausgangsdatum ist kein Wochentag");
 			}
 		} else {
-			System.out.println("Geben Sie ein gültiges Datum an");
+			System.out.println("Geben Sie ein gueltiges Datum an");
 		}
 	}
 
@@ -80,7 +77,6 @@ public class Termine {
 		} else {
 			tagFormatiert = Integer.toString(tag);
 		}
-
 		if (monat < 10) {
 			monatFormatiert = "0" + monat;
 		} else {
@@ -131,15 +127,6 @@ public class Termine {
 
 		}
 		return wochentag;
-	}
-
-	public static String berechneWochentagAusString(String datum) {
-
-		return null;
-
-		// TODO wird wohl nicht einmal benötigt; wochentag ändert sich nicht einmal bei
-		// schaltjahr in februar über substring
-
 	}
 
 	public static boolean pruefeSchaltjahr(int jahr) {
@@ -235,48 +222,43 @@ public class Termine {
 		}
 
 		return formatiereDatum(tag, monat, jahr);
-
 	}
 
 	public static String berechnerueckwaertsDatum(int tag, int monat, int jahr, int anzahlTage) {
-		// TODO Fehler beheben: Datum ist immer um 3 geringer, als es eigentlich sein
-		// sollte
 		anzahlTage = anzahlTage - tag;
-		tag = 1;
 
 		while (anzahlTage > 0) {
 			int anzahlTageMonat;
 
 			switch (monat) {
 			case 2:
-			case 5:
-			case 7:
 			case 8:
-			case 10:
-			case 12:
-				anzahlTageMonat = 31;
-				if (anzahlTage >= anzahlTageMonat) {
-					anzahlTage = anzahlTage - anzahlTageMonat + 1;
-					monat = monat - 1;
-					break;
-				} else {
-					tag = anzahlTageMonat - anzahlTage + 1;
-					monat = monat - 1;
-					anzahlTage = 0;
-					break;
-				}
-
 			case 4:
 			case 6:
 			case 9:
 			case 11:
-				anzahlTageMonat = 30;
+				anzahlTageMonat = 31;
 				if (anzahlTage >= anzahlTageMonat) {
-					anzahlTage = anzahlTage - anzahlTageMonat + 1;
+					anzahlTage = anzahlTage - anzahlTageMonat;
 					monat = monat - 1;
 					break;
 				} else {
-					tag = anzahlTageMonat - anzahlTage + 1;
+					tag = anzahlTageMonat - anzahlTage;
+					monat = monat - 1;
+					anzahlTage = 0;
+					break;
+				}
+			case 5:
+			case 7:
+			case 10:
+			case 12:
+				anzahlTageMonat = 30;
+				if (anzahlTage >= anzahlTageMonat) {
+					anzahlTage = anzahlTage - anzahlTageMonat;
+					monat = monat - 1;
+					break;
+				} else {
+					tag = anzahlTageMonat - anzahlTage;
 					monat = monat - 1;
 					anzahlTage = 0;
 					break;
@@ -286,11 +268,11 @@ public class Termine {
 				if (pruefeSchaltjahr(jahr)) {
 					anzahlTageMonat = 29;
 					if (anzahlTage >= anzahlTageMonat) {
-						anzahlTage = anzahlTage - anzahlTageMonat + 1;
+						anzahlTage = anzahlTage - anzahlTageMonat;
 						monat = monat - 1;
 						break;
 					} else {
-						tag = anzahlTageMonat - anzahlTage + 1;
+						tag = anzahlTageMonat - anzahlTage;
 						monat = monat - 1;
 						anzahlTage = 0;
 						break;
@@ -299,27 +281,26 @@ public class Termine {
 				} else {
 					anzahlTageMonat = 28;
 					if (anzahlTage >= anzahlTageMonat) {
-						anzahlTage = anzahlTage - anzahlTageMonat + 1;
+						anzahlTage = anzahlTage - anzahlTageMonat;
 						monat = monat - 1;
 						break;
 					} else {
-						tag = anzahlTageMonat - anzahlTage + 1;
+						tag = anzahlTageMonat - anzahlTage;
 						monat = monat - 1;
 						anzahlTage = 0;
 						break;
 					}
-
 				}
 
 			default:
 				anzahlTageMonat = 31;
 				if (anzahlTage >= anzahlTageMonat) {
-					anzahlTage = anzahlTage - anzahlTageMonat + 1;
+					anzahlTage = anzahlTage - anzahlTageMonat;
 					monat = 12;
 					jahr = jahr - 1;
 					break;
 				} else {
-					tag = anzahlTageMonat - anzahlTage + 1;
+					tag = anzahlTageMonat - anzahlTage;
 					monat = 12;
 					jahr = jahr - 1;
 					anzahlTage = 0;

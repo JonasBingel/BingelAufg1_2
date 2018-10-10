@@ -3,13 +3,8 @@ package pack;
 public class Geldscheine {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		final int EINGABE_BETRAG = 365;
-		// TODO zweite pruefe hoehe funktion; alles in vier variablen aufteilen und in
-		// der funktion die ausgabe aufrufen
-		// TODO redundanz bei summe der anzahl d.h. vgl. pruefehoehe funktion
 		int ausgabeBetrag = (EINGABE_BETRAG - (EINGABE_BETRAG % 5));
-		// final double scheinHoehe = 0.01;
 		System.out.println("Eingabebetrag: " + EINGABE_BETRAG + " EUR");
 		System.out.println("Auszahlungsbetrag: " + ausgabeBetrag);
 		System.out.println("Ausgabe:");
@@ -19,10 +14,6 @@ public class Geldscheine {
 		System.out.println("Varianten von Ausgaben:");
 		berechneVarianten(ausgabeBetrag);
 
-	}
-
-	public static void eingeben() {
-		// abzuhebender Geldbetrag wird gelesen
 	}
 
 	public static boolean pruefenHoehe(int anzahl) {
