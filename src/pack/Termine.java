@@ -1,12 +1,15 @@
-/**
-* Bingel Jonas
-* 28.10.2018, V2.0 final
-* Die Termin Klasse erfuellt die Anforderungen der 2. Aufgabe 'Datumsberechnung' vom Modul Prog1 AWIS18 WS18/19 an der HS Mainz.
-* Eine Ausgangsdatum wird angegeben, dessen Gueltigkeit und Wochentag geprueft wird. Zudem wird ein Bearbeitungszeitraum in Wochen angegeben.
-* Dann wird ein Vorwaerts- und Rueckwaertstermin berechnet mittels Addition/Subtraktion des Bearbeitungszeitraums vom Ausgangsdatum.
-*/
 package pack;
 
+/**
+ * @author Jonas Bingel
+ * @version 2.0 , 29.10.2018 Die Termin Klasse erfuellt die Anforderungen der 2.
+ *          Aufgabe 'Datumsberechnung' vom Modul Prog1 AWIS18 WS18/19 an der HS
+ *          Mainz. Eine Ausgangsdatum wird angegeben, dessen Gueltigkeit und
+ *          Wochentag geprueft wird. Zudem wird ein Bearbeitungszeitraum in
+ *          Wochen angegeben. Dann wird ein Vorwaerts- und Rueckwaertstermin
+ *          berechnet mittels Addition/Subtraktion des Bearbeitungszeitraums vom
+ *          Ausgangsdatum.
+ */
 public class Termine {
 
 	/**
@@ -47,7 +50,8 @@ public class Termine {
 	}
 
 	/**
-	 * berechneWochentag() berechnet den Wochentag mit der gausschen Kalenderformel.
+	 * berechneWochentag() berechnet den Wochentag mit der gausschen Kalenderformel
+	 * siehe: http://www.straub.as/java/basic/Uwochentag.html
 	 * 
 	 * @param tag: Tag des angegebenen Datums.
 	 * @param monat: Monat des angegebenen Datums.
@@ -67,10 +71,12 @@ public class Termine {
 			h = monat;
 			k = jahr;
 		}
-
 		wochentagNummer = (tag + 2 * h + (3 * h + 3) / 5 + k + k / 4 - k / 100 + k / 400 + 1) % 7;
-
-		switch (wochentagNummer) {
+		String[] wochentage = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+		return wochentage[wochentagNummer];
+		
+		/*
+		 * switch (wochentagNummer) {
 		case 1:
 			wochentag = "Montag";
 			break;
@@ -93,6 +99,7 @@ public class Termine {
 			wochentag = "Sonntag";
 		}
 		return wochentag;
+		 * */
 	}
 
 	/**
@@ -105,6 +112,7 @@ public class Termine {
 	 *         Monatsangaben zu filtern.
 	 */
 	public static int berechneAnzahlTageInMonat(int monat, int jahr) {
+		// TODO IF-else statement statt switch
 		switch (monat) {
 		case 1:
 		case 3:
@@ -267,7 +275,8 @@ public class Termine {
 	 * @return formatiertes Datum als String.
 	 */
 	public static String formatiereDatum(int tag, int monat, int jahr) {
-		String tagFormatiert;
+		return(String.format("%02d", tag)+"."+ String.format("%02d", monat)+"."+ jahr);
+		/*String tagFormatiert;
 		String monatFormatiert;
 		if (tag < 10) {
 			tagFormatiert = "0" + tag;
@@ -280,7 +289,7 @@ public class Termine {
 			monatFormatiert = Integer.toString(monat);
 		}
 
-		return (tagFormatiert + "." + monatFormatiert + "." + jahr);
+		return (tagFormatiert + "." + monatFormatiert + "." + jahr);*/
 	}
 
 	/**
@@ -317,7 +326,7 @@ public class Termine {
 	 * Fallunterscheidung durchgefuehrt, ob das Datum gueltig und der Wochentag
 	 * ungleich Samstag/Sonntag ist.
 	 * 
-	 * @param args
+	 * @param args: Keine weitere Implementierung
 	 */
 	public static void main(String[] args) {
 		final int TAG = 22;
