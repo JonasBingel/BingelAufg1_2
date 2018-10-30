@@ -1,5 +1,3 @@
-package pack;
-
 /**
  * @author Jonas Bingel
  * @version 2.0 , 29.10.2018 Die Termin Klasse erfuellt die Anforderungen der 2.
@@ -10,6 +8,8 @@ package pack;
  *          berechnet mittels Addition/Subtraktion des Bearbeitungszeitraums vom
  *          Ausgangsdatum.
  */
+package pack;
+
 public class Termine {
 
 	/**
@@ -23,6 +23,13 @@ public class Termine {
 	 */
 	public static boolean pruefeDatum(int tag, int monat, int jahr) {
 
+		/**
+		 * If-Statement prueft, ob das Jahr zwischen 1582 und 3000 liegt, da nur dann
+		 * der Gregorianische Kalender gilt. Das Innere If-Statement prueft, ob der
+		 * angegebene Tag gueltig ist, d.h. ungleich 0 ist und kleiner als die
+		 * Tagesanzahl im angegebenen Monat, sodass falsche Daten wie 31.02 oder 42.12
+		 * gefiltert werden.
+		 */
 		if (1582 <= jahr && jahr <= 3000) {
 			if (0 < tag && tag <= berechneAnzahlTageInMonat(monat, jahr)) {
 				return true;
@@ -51,7 +58,8 @@ public class Termine {
 
 	/**
 	 * berechneWochentag() berechnet den Wochentag mit der gausschen Kalenderformel
-	 * siehe: http://www.straub.as/java/basic/Uwochentag.html
+	 * siehe: http://www.straub.as/java/basic/Uwochentag.html (Quelle:
+	 * Aufgabenvorgaben)
 	 * 
 	 * @param tag: Tag des angegebenen Datums.
 	 * @param monat: Monat des angegebenen Datums.
@@ -72,34 +80,16 @@ public class Termine {
 			k = jahr;
 		}
 		wochentagNummer = (tag + 2 * h + (3 * h + 3) / 5 + k + k / 4 - k / 100 + k / 400 + 1) % 7;
-		String[] wochentage = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+		String[] wochentage = { "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag" };
 		return wochentage[wochentagNummer];
-		
+
 		/*
-		 * switch (wochentagNummer) {
-		case 1:
-			wochentag = "Montag";
-			break;
-		case 2:
-			wochentag = "Dienstag";
-			break;
-		case 3:
-			wochentag = "Mittwoch";
-			break;
-		case 4:
-			wochentag = "Donnerstag";
-			break;
-		case 5:
-			wochentag = "Freitag";
-			break;
-		case 6:
-			wochentag = "Samstag";
-			break;
-		default:
-			wochentag = "Sonntag";
-		}
-		return wochentag;
-		 * */
+		 * switch (wochentagNummer) { case 1: wochentag = "Montag"; break; case 2:
+		 * wochentag = "Dienstag"; break; case 3: wochentag = "Mittwoch"; break; case 4:
+		 * wochentag = "Donnerstag"; break; case 5: wochentag = "Freitag"; break; case
+		 * 6: wochentag = "Samstag"; break; default: wochentag = "Sonntag"; } return
+		 * wochentag;
+		 */
 	}
 
 	/**
@@ -113,6 +103,13 @@ public class Termine {
 	 */
 	public static int berechneAnzahlTageInMonat(int monat, int jahr) {
 		// TODO IF-else statement statt switch
+		/*
+		 * if (tag = 1 || tag = 3 || tag = 5 || tag = 7 || tag = 8 || tag = 10 || tag =
+		 * 12) { return 31; } else if (tag = 2) { if (pruefeSchaltjahr(jahr) == true) {
+		 * return 29; } else { return 28; } } else { return 30; }
+		 * 
+		 * 
+		 */
 		switch (monat) {
 		case 1:
 		case 3:
@@ -275,21 +272,15 @@ public class Termine {
 	 * @return formatiertes Datum als String.
 	 */
 	public static String formatiereDatum(int tag, int monat, int jahr) {
-		return(String.format("%02d", tag)+"."+ String.format("%02d", monat)+"."+ jahr);
-		/*String tagFormatiert;
-		String monatFormatiert;
-		if (tag < 10) {
-			tagFormatiert = "0" + tag;
-		} else {
-			tagFormatiert = Integer.toString(tag);
-		}
-		if (monat < 10) {
-			monatFormatiert = "0" + monat;
-		} else {
-			monatFormatiert = Integer.toString(monat);
-		}
-
-		return (tagFormatiert + "." + monatFormatiert + "." + jahr);*/
+		return (String.format("%02d", tag) + "." + String.format("%02d", monat) + "." + jahr);
+		/*
+		 * String tagFormatiert; String monatFormatiert; if (tag < 10) { tagFormatiert =
+		 * "0" + tag; } else { tagFormatiert = Integer.toString(tag); } if (monat < 10)
+		 * { monatFormatiert = "0" + monat; } else { monatFormatiert =
+		 * Integer.toString(monat); }
+		 * 
+		 * return (tagFormatiert + "." + monatFormatiert + "." + jahr);
+		 */
 	}
 
 	/**

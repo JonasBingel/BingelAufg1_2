@@ -1,5 +1,3 @@
-package pack;
-
 /**
  * @author Jonas Bingel
  * @version 2.0 , 29.10.2018 Die Geldschein Klasse erfuellt die Anforderungen
@@ -9,6 +7,8 @@ package pack;
  *          50/20/10/5ern, sowie alle moeglichen Varianten aus 10/5ern wird
  *          ausgegeben.
  */
+package pack;
+
 public class Geldscheine {
 
 	/**
@@ -45,11 +45,12 @@ public class Geldscheine {
 				anzahl20 = anzahl;
 			case 10:
 				anzahl10 = anzahl;
-			case 5:
-				anzahl5 = anzahl;
+				/**
+				 * Nur die Geldscheine 50, 20, 10 und 5 sind moeglich, da auch das Array final
+				 * ist, muss 5 der default sein
+				 */
 			default:
-				// TODO remove default?
-				// java.lang.error
+				anzahl5 = anzahl;
 
 			}
 		}
@@ -199,12 +200,11 @@ public class Geldscheine {
 	 *        Implementierung.
 	 */
 	public static void main(String[] args) {
-		final int eingabeBetrag = 936;
-		int ausgabeBetrag = (eingabeBetrag - (eingabeBetrag % 5));
-		System.out.println("Eingabebetrag: " + eingabeBetrag + " EUR");
+		final int EINGABEBETRAG = 936;
+		int ausgabeBetrag = (EINGABEBETRAG - (EINGABEBETRAG % 5));
+		System.out.println("Eingabebetrag: " + EINGABEBETRAG + " EUR");
 		System.out.println("Auszahlungsbetrag: " + ausgabeBetrag);
 		System.out.println("Ausgabe:");
-
 		berechneMinimaleScheine(ausgabeBetrag);
 		System.out.println();
 		System.out.println("Varianten von Ausgaben:");
