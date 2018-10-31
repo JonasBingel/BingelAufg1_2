@@ -71,7 +71,6 @@ public class Termine {
 		int h;
 		int k;
 		int wochentagNummer;
-		String wochentag;
 		if (monat <= 2) {
 			h = monat + 12;
 			k = jahr - 1;
@@ -80,16 +79,27 @@ public class Termine {
 			k = jahr;
 		}
 		wochentagNummer = (tag + 2 * h + (3 * h + 3) / 5 + k + k / 4 - k / 100 + k / 400 + 1) % 7;
-		String[] wochentage = { "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag" };
-		return wochentage[wochentagNummer];
 
-		/*
-		 * switch (wochentagNummer) { case 1: wochentag = "Montag"; break; case 2:
-		 * wochentag = "Dienstag"; break; case 3: wochentag = "Mittwoch"; break; case 4:
-		 * wochentag = "Donnerstag"; break; case 5: wochentag = "Freitag"; break; case
-		 * 6: wochentag = "Samstag"; break; default: wochentag = "Sonntag"; } return
-		 * wochentag;
+		/**
+		 * Die Formel kann nur Werte zwischen 0 und 6 liefern, daher gibt es nur 6
+		 * Cases, mit 0 als Default
 		 */
+		switch (wochentagNummer) {
+		case 1:
+			return "Montag";
+		case 2:
+			return "Dienstag";
+		case 3:
+			return "Mittwoch";
+		case 4:
+			return "Donnerstag";
+		case 5:
+			return "Freitag";
+		case 6:
+			return "Samstag";
+		default:
+			return "Sonntag";
+		}
 	}
 
 	/**
@@ -102,14 +112,6 @@ public class Termine {
 	 *         Monatsangaben zu filtern.
 	 */
 	public static int berechneAnzahlTageInMonat(int monat, int jahr) {
-		// TODO IF-else statement statt switch
-		/*
-		 * if (tag = 1 || tag = 3 || tag = 5 || tag = 7 || tag = 8 || tag = 10 || tag =
-		 * 12) { return 31; } else if (tag = 2) { if (pruefeSchaltjahr(jahr) == true) {
-		 * return 29; } else { return 28; } } else { return 30; }
-		 * 
-		 * 
-		 */
 		switch (monat) {
 		case 1:
 		case 3:
@@ -147,27 +149,27 @@ public class Termine {
 	public static String berechneVorwaertsDatum(int tag, int monat, int jahr, int anzahlTage) {
 		int anzahlTageMonat;
 
-		/*
+		/**
 		 * Das Datum wird auf den 1. Tag des Monats gesetzt. Dadurch erhoeht sich die
 		 * anzahlTage, um den Wert von Tag.
 		 */
 		anzahlTage = anzahlTage + tag - 1;
 		tag = 1;
 
-		/*
+		/**
 		 * While-Schleife laueft solange bis anzahlTage < 0, d.h. keine Tage mehr auf
 		 * das Ausgansdatums addiert werden koennen.
 		 */
 		while (anzahlTage > 0) {
 
-			/*
+			/**
 			 * If prueft nach Monat, da bei Dezember zusätzlich das Jahr verändert werden
 			 * muss.
 			 */
 
 			if (monat != 12) {
 
-				/*
+				/**
 				 * Wenn AnzahlTage >= TageInMonat ist, liegt das neue Datum nicht in diesem
 				 * Monat. Daher erhoeht sich der Monat um 1 und die TageInMonat wird von
 				 * AnzahlTage abgezogen. Sonst liegt das neue Datum im Monat und der Tag wird
@@ -184,7 +186,7 @@ public class Termine {
 				}
 			} else {
 
-				/*
+				/**
 				 * Analog zum vorigen if-Teil, jedoch wird das Jahr erhoeht, wenn AnzahlTage >=
 				 * TageInMonat.
 				 */
@@ -218,13 +220,13 @@ public class Termine {
 
 		while (anzahlTage > 0) {
 
-			/*
+			/**
 			 * If prueft nach aktuellem Monat, da bei Januar zusätzlich das Jahr verändert
 			 * werden muss.
 			 */
 			if (monat != 1) {
 
-				/*
+				/**
 				 * Wenn AnzahlTage >= TageInMonat des Vormonats ist, liegt das neue Datum nicht
 				 * in diesem Monat. Daher verringert sich der Monat um 1 und die TageInMonat
 				 * wird von AnzahlTage abgezogen. Sonst liegt das neue Datum im vorigen Monat
@@ -242,7 +244,7 @@ public class Termine {
 				}
 			} else {
 
-				/*
+				/**
 				 * Analog zum vorigen if-Teil. anzahlTageMonat ist hardcodiert, da
 				 * anzahlTageMonat von Dezember benoetigt werden
 				 */
@@ -264,7 +266,8 @@ public class Termine {
 
 	/**
 	 * formatiereDatum() formatiert das Datum aus den berechneDatum Funktionen fuer
-	 * die Ausgabe.
+	 * die Ausgabe. Aus didaktischen Gruenden wurde dieses Mal auf die
+	 * String.format("%02d")-Methode verzichtet.
 	 * 
 	 * @param tag: Tag des zu formatierenden Datums.
 	 * @param monat: Monat des zu formatierenden Datums.
@@ -272,15 +275,21 @@ public class Termine {
 	 * @return formatiertes Datum als String.
 	 */
 	public static String formatiereDatum(int tag, int monat, int jahr) {
-		return (String.format("%02d", tag) + "." + String.format("%02d", monat) + "." + jahr);
-		/*
-		 * String tagFormatiert; String monatFormatiert; if (tag < 10) { tagFormatiert =
-		 * "0" + tag; } else { tagFormatiert = Integer.toString(tag); } if (monat < 10)
-		 * { monatFormatiert = "0" + monat; } else { monatFormatiert =
-		 * Integer.toString(monat); }
-		 * 
-		 * return (tagFormatiert + "." + monatFormatiert + "." + jahr);
-		 */
+
+		String tagFormatiert;
+		String monatFormatiert;
+		if (tag < 10) {
+			tagFormatiert = "0" + tag;
+		} else {
+			tagFormatiert = Integer.toString(tag);
+		}
+		if (monat < 10) {
+			monatFormatiert = "0" + monat;
+		} else {
+			monatFormatiert = Integer.toString(monat);
+		}
+		return (tagFormatiert + "." + monatFormatiert + "." + jahr);
+
 	}
 
 	/**

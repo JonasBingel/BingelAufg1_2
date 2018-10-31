@@ -1,11 +1,12 @@
 /**
  * @author Jonas Bingel
- * @version 2.0 , 29.10.2018 Die Geldschein Klasse erfuellt die Anforderungen
- *          der 1. Aufgabe 'Geldautomat' vom Modul Prog1 AWIS18 WS18/19 an der
- *          HS Mainz. Ein Eingabebetrag wird auf ein Vielfaches von Fuenf
- *          gerundet, die dafuer minimal notwendige Scheinanzahl aus
- *          50/20/10/5ern, sowie alle moeglichen Varianten aus 10/5ern wird
- *          ausgegeben.
+ * @version 2.0 , 29.10.2018 
+ * Die Geldschein Klasse erfuellt die Anforderungen
+ * der 1. Aufgabe 'Geldautomat' vom Modul Prog1 AWIS18 WS18/19 an der
+ * HS Mainz. Ein Eingabebetrag wird auf ein Vielfaches von Fuenf
+ * gerundet, die dafuer minimal notwendige Scheinanzahl aus
+ * 50/20/10/5ern, sowie alle moeglichen Varianten aus 10/5ern wird
+ * ausgegeben.
  */
 package pack;
 
@@ -45,13 +46,14 @@ public class Geldscheine {
 				anzahl20 = anzahl;
 			case 10:
 				anzahl10 = anzahl;
+			case 5:
+				anzahl5 = anzahl;
 				/**
 				 * Nur die Geldscheine 50, 20, 10 und 5 sind moeglich, da auch das Array final
-				 * ist, muss 5 der default sein
+				 * ist wird der default nie erreicht.
 				 */
 			default:
-				anzahl5 = anzahl;
-
+				return;
 			}
 		}
 
@@ -158,11 +160,6 @@ public class Geldscheine {
 	public static void ausgabeVarianten(int ausgabeBetrag, int anzahl10, int anzahl5) {
 		System.out.println(ausgabeBetrag + " koennen aus:" + System.lineSeparator() + "  " + anzahl10
 				+ " mal 10-EUR und" + System.lineSeparator() + "  " + anzahl5 + " mal 5-EUR zusammengesetzt werden");
-		/*
-		 * System.out.println(ausgabeBetrag + " koennen aus:"); System.out.println("  "
-		 * + anzahl10 + " mal 10-EUR und"); System.out.println("  " + anzahl5 +
-		 * " mal 5-EUR zusammengesetzt werden");
-		 */
 	}
 
 	/**
@@ -197,7 +194,7 @@ public class Geldscheine {
 	 * Funktionen aufgerufen.
 	 * 
 	 * @param args: Standardparameter der Main-Methode, hier nicht weiter
-	 *        Implementierung.
+	 *        implementiert.
 	 */
 	public static void main(String[] args) {
 		final int EINGABEBETRAG = 936;
