@@ -60,9 +60,9 @@ public class Geldscheine {
 		anzahl = berechneAnzahl(anzahl5, anzahl10, anzahl20, anzahl50);
 
 		/**
-		 * Gesamtscheinanzahl wird mit pruefenHoehe() geprueft. Bei Anzahl <= 100 wird
-		 * die Ausgabefunktion fuer Hoehe und Minimalscheinanzahl aufgerufen.
-		 * Andernfalls wird ausgegeben, dass die Scheinanzahl zu hoch ist.
+		 * Gesamtscheinanzahl wird mit pruefenHoehe() geprueft. Bei Anzahl kleiner
+		 * gleich 100 wird die Ausgabefunktion fuer Hoehe und Minimalscheinanzahl
+		 * aufgerufen. Andernfalls wird ausgegeben, dass die Scheinanzahl zu hoch ist.
 		 */
 
 		if (pruefenHoehe(anzahl)) {
@@ -76,8 +76,8 @@ public class Geldscheine {
 
 	/**
 	 * Die Funktion berechnet alle moeglichen Varianten um den ausgabeBetrag mit
-	 * 10/5ern darzustellen. Solange die Gesamtscheinanzahl <= 100 ist, werden die
-	 * Varianten ausgegeben, sonst ein Hinweis, dass es keine moeglichen
+	 * 10/5ern darzustellen. Solange die Gesamtscheinanzahl kleiner gleich 100 ist,
+	 * werden die Varianten ausgegeben, sonst ein Hinweis, dass es keine moeglichen
 	 * Kombinationen gibt.
 	 * 
 	 * @param ausgabeBetrag:Ausgabebetrag, der auf Vielfaches von Fuenf gerundet
@@ -117,6 +117,7 @@ public class Geldscheine {
 	 * @param anzahl10: Anzahl der Zehn Euro-Scheine
 	 * @param anzahl20: Anzahl der Zwanzig Euro-Scheine.
 	 * @param anzahl50: Anzahl der Fuenfzig Euro-Scheine.
+	 * @return Die Summe sprich Gesamtanzahl an Geldscheinen.
 	 */
 	public static int berechneAnzahl(int anzahl5, int anzahl10, int anzahl20, int anzahl50) {
 		int anzahl = anzahl5 + anzahl10 + anzahl20 + anzahl50;
@@ -124,11 +125,12 @@ public class Geldscheine {
 	}
 
 	/**
-	 * pruefenHoehe() prueft, ob die Scheinanzahl, d.h. angegebener Parameter, <=
-	 * 100 ist.
+	 * pruefenHoehe() prueft, ob die Scheinanzahl, d.h. angegebener Parameter,
+	 * kleiner gleich 100 ist.
 	 * 
 	 * @param anzahl: Geldscheinanzahl
-	 * @return: Ein boolschen Wert. True wenn anzahl <= 100 ist, sonst false.
+	 * @return Ein boolschen Wert. True wenn anzahl kleiner gleich 100 ist, sonst
+	 *          false.
 	 */
 	public static boolean pruefenHoehe(int anzahl) {
 		return anzahl <= 100;
