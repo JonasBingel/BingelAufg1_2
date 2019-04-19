@@ -1,0 +1,15 @@
+"jbingel
+
+Aufgabe 1: 10 Punkte
+
+- In Javadoc sollten keine Doppelpunkte nach @param oder @return verwendet werden, da diese auch in den generierten Javadocs an den Stellen ergänzt werden, an denen schon ein Bindestrich zur Trennung angezeigt wird (Hinweis)
+
+
+
+Aufgabe 2: 9,75 Punkte
+
+- Strings sollten mit equals und nicht mit == verglichen werden, da bei == nur die Speicheradressen des Objekts nicht aber die Übereinstimmung des Textes geprüft wird (-0,25)
+
+- In Javadoc sollten keine Doppelpunkte nach @param oder @return verwendet werden, da diese auch in den generierten Javadocs an den Stellen ergänzt werden, an denen schon ein Bindestrich zur Trennung angezeigt wird (Hinweis)
+
+- Änderungen an Eingabeparametern in Methoden werden normalerweise vermieden. Meist wird eine temporäre Variable für das Ergebnis angelegt (Hinweis)" 
